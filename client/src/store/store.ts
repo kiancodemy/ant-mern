@@ -1,4 +1,5 @@
 import { configureStore } from "@reduxjs/toolkit";
+import { mainApi } from "./api/apislice";
 import {
   persistStore,
   persistReducer,
@@ -27,13 +28,13 @@ const persistedReducer = persistReducer(
 );
 
 export const store = configureStore({
-  reducer: persistedReducer,
+  reducer: { persistedReducer, [mainApi.reducerPath]: mainApi.reducer },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({
       serializableCheck: {
         ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
       },
-    }),
+    }).concat(mainApi.middleware),
 });
 
 export type RootState = ReturnType<typeof store.getState>;

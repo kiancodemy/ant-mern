@@ -1,5 +1,6 @@
-:root {
-}
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 .app {
   display: flex;
   flex-direction: column;
@@ -7,4 +8,7 @@
 
   width: 100%;
   overflow: hidden;
+}
+body {
+  box-sizing: border-box;
 }

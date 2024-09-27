@@ -4,10 +4,10 @@ const { Paragraph } = Typography;
 export default function Auth() {
   return (
     <div>
-      <Row style={{ minHeight: "100vh", backgroundColor: "#aaa" }}>
+      <Row style={{ minHeight: "100vh" }}>
         <Col xs={{ span: 0 }} lg={{ span: 12 }}>
           <Flex
-            style={{ backgroundColor: "#000", minHeight: "100vh" }}
+            className="bg-black min-h-screen p-20"
             justify="center"
             align="center"
           >
@@ -26,7 +26,7 @@ export default function Auth() {
             </Paragraph>
           </Flex>
         </Col>
-        <Col xs={{ span: 0 }} lg={{ span: 12 }}>
+        <Col xs={{ span: 24 }} lg={{ span: 12 }}>
           <Flex style={{ minHeight: "100vh" }} justify="center" align="center">
             <Outlet></Outlet>
           </Flex>
