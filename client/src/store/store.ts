@@ -10,7 +10,7 @@ import {
   PURGE,
   REGISTER,
 } from "redux-persist";
-import auth from "./slices/authslice";
+import authslice from "./slices/authslice";
 import storage from "redux-persist/lib/storage";
 
 import { combineReducers } from "redux";
@@ -23,7 +23,7 @@ const persistConfig = {
 const persistedReducer = persistReducer(
   persistConfig,
   combineReducers({
-    auth: auth,
+    auth: authslice,
   })
 );
 

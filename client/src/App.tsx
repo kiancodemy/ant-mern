@@ -12,14 +12,13 @@ import Home from "./pages/shopping/Home";
 import Listing from "./pages/shopping/Listing";
 import Checkout from "./pages/shopping/Checkout";
 import Acount from "./pages/shopping/Acount";
-import A from "./components/A";
-import Checkauth from "./components/checkAuth.tsx/Checkauth";
+
+import Checkauth from "./components/checkAuth/Checkauth";
 export default function App() {
   return (
     <div className="app">
-      <h1>s</h1>
       <Routes>
-        <Route element={<Checkauth></Checkauth>}>
+        <Route path="" element={<Checkauth></Checkauth>}>
           <Route path="/auth" element={<Auth />}>
             <Route path="login" element={<Login />} />
             <Route path="signup" element={<Signup />} />

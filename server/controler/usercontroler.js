@@ -35,28 +35,67 @@ export const login = async (req, res) => {
     if (!find) {
       throw new Error("the email is not valid");
     }
-    const ismatch = await find.decode(find.password);
+
+    const ismatch = await find.decode(password);
     if (!ismatch) {
       throw new Error("password is not correct");
     }
     const token = await tokens(find);
+    const data = {
+      username: find.username,
+      email: find.email,
+      role: find.role,
+    };
 
     res.cookie("jwt", token, {
       httpOnly: true,
       secure: process.env.MODE === "production",
-      sameSite: "None",
-      maxAge: 5600 * 24 * 60 * 60 * 1000,
+      /*sameSite: "None",*/
+      maxAge: 56 * 100 * 7 * 24 * 60 * 60 * 1000,
     });
     res.status(201).json({
       status: "success",
       message: "Login successfully",
-      data: find,
-      token,
+      userInfo: data,
     });
   } catch (err) {
     res.status(404).json({
       status: "failed",
-      message: "failed to Login",
+      message: err.message,
+    });
+  }
+};
+
+export const logout = async (req, res) => {
+  try {
+    res.clearCookie("jwt");
+    res.status(201).json({
+      status: "success",
+      message: "Logout successfully",
+    });
+  } catch (err) {
+    res.status(404).json({
+      status: "failed",
+      message: err.message,
+    });
+  }
+};
+
+export const middleware = async (req, res, next) => {
+  try {
+    const token = req.cookies.jwt;
+    if (!token) {
+      throw new error("please login");
+    }
+
+    const { id } = await jwt.verify(token, process.env.secretTOK);
+    const find = User.findById(id);
+    req.user = find;
+    next();
+  } catch (err) {
+    res.status(404).json({
+      status: "failed",
+      message: err.message,
     });
   }
 };

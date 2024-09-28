@@ -1,29 +1,57 @@
-import { Button, Input, Flex, Form } from "antd";
+import { Button, Input, Flex, Form, message } from "antd";
 import { Link } from "react-router-dom";
+import { useAppDispatch } from "../../hooks/reduxHook";
+import { loginUser } from "../../store/slices/authslice";
+import { useLoginMutation } from "../../store/api/userapi";
+import { useNavigate } from "react-router-dom";
+import { useEffect } from "react";
+
 import type { FormProps } from "antd";
-import { useState } from "react";
+
 type FieldType = {
   password?: string;
   email?: string;
 };
 
 export default function LoginForm() {
-  const [loading, setloading] = useState<boolean>(false);
+  const navigate = useNavigate();
+
+  ///rtk query config//
+  const [get, { isLoading, data, isSuccess, isError, error }] =
+    useLoginMutation();
+
+  // redux toolit//
+  const dispatch = useAppDispatch();
+
+  ///ant design alert message
+  const [messageApi, contextHolder] = message.useMessage();
+  useEffect(() => {
+    if (isError) {
+      messageApi.open({
+        type: "error",
+        content: error?.data?.message,
+        duration: 3,
+      });
+    } else if (isSuccess) {
+      messageApi.open({
+        type: "success",
+        content: data.message,
+        duration: 2,
+      });
+      dispatch(loginUser(data.userInfo));
+      setTimeout(() => {
+        navigate("/");
+      }, 2000);
+    }
+  }, [isError, error, isSuccess, data, error, navigate, dispatch]);
+
   const onFinish: FormProps<FieldType>["onFinish"] = async (values) => {
-    console.log(values);
-    setloading(true);
-    setTimeout(() => {
-      setloading(false);
-    }, 3000);
+    await get(values);
   };
 
-  const onFinishFailed: FormProps<FieldType>["onFinishFailed"] = (
-    errorInfo
-  ) => {
-    console.log("Failed:", errorInfo);
-  };
   return (
     <div className=" max-w-[500px] py-[10px] px-[20px]">
+      {contextHolder}
       <Flex gap={20} vertical>
         <h1 className="font-bold capitalize text-[30px] text-center">login </h1>
         <Flex
@@ -40,7 +68,6 @@ export default function LoginForm() {
           wrapperCol={{ span: 16 }}
           style={{ maxWidth: 500 }}
           onFinish={onFinish}
-          onFinishFailed={onFinishFailed}
           autoComplete="off"
         >
           <Form.Item<FieldType>
@@ -65,7 +92,7 @@ export default function LoginForm() {
               sm: { offset: 8, span: 16 },
             }}
           >
-            <Button block loading={loading} type="primary" htmlType="submit">
+            <Button block loading={isLoading} type="primary" htmlType="submit">
               Submit
             </Button>
           </Form.Item>

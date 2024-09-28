@@ -1,5 +1,11 @@
 export type usertype = {
-  username: string;
-  email: string;
-  role: string;
+  userinfo: {
+    username: string;
+    email: string;
+    role: string;
+  };
+};
+
+export type onClos = {
+  onClos?: () => void;
 };

@@ -1,22 +1,40 @@
-import { createSlice } from "@reduxjs/toolkit";
-import type { PayloadAction } from "@reduxjs/toolkit";
+import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 
-export interface auth {
-  value: number;
-}
-
-const initialState: auth = {
-  value: 0,
+import { usertype } from "../../types/user";
+const fetchauth = createAsyncThunk("users/fetchByIdStatus", async () => {
+  try {
+    const response = await fetch(
+      `${import.meta.env.VITE_BASEURL}/users/checkauth`,
+      { credentials: "include" }
+    );
+    return response.json();
+  } catch (err) {
+    return err;
+  }
+});
+const initialState: usertype = {
+  userinfo: {
+    username: "",
+    email: "",
+    role: "",
+  },
 };
 
 export const authSlice = createSlice({
   name: "auth",
   initialState,
   reducers: {
-    setuser: (state, action) => {},
+    loginUser: (state, action) => {
+      state.userinfo = action.payload;
+    },
+  },
+  extraReducers: (builder) => {
+    builder.addCase(fetchauth.rejected, (state) => {
+      state.userinfo = { username: "", email: "", role: "" };
+    });
   },
 });
 
-export const { setuser } = authSlice.actions;
+export const { loginUser } = authSlice.actions;
 
 export default authSlice.reducer;
