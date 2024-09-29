@@ -7,11 +7,14 @@ import {
   Upload,
   message,
 } from "antd";
+import { useState } from "react";
 import { UploadOutlined } from "@ant-design/icons";
 import type { UploadProps } from "antd";
 import type { FormProps } from "antd";
 import { categories, brand } from "../../assets/admin/adminDashboard";
 export default function NewProduct() {
+  const [fileList, setFileList] = useState<any>([]);
+  console.log("f", fileList);
   ///upload image config
 
   const normFile = (e: any) => {
@@ -19,24 +22,27 @@ export default function NewProduct() {
     if (Array.isArray(e)) {
       return e;
     }
+    setFileList(e.fileList);
     return e?.fileList;
   };
 
   const props: UploadProps = {
-    name: "file",
-    action: "/",
+    action: `${import.meta.env.VITE_BASEURL}/admin/send`,
+
     headers: {
       authorization: "authorization-text",
     },
-    onChange(info) {
-      if (info.file.status !== "uploading") {
-        console.log(info.file, info.fileList);
+
+    onChange({ file, fileList }) {
+      if (file.status !== "uploading") {
+        console.log(file, fileList);
       }
-      if (info.file.status === "done") {
-        message.success(`${info.file.name} file uploaded successfully`);
-      } else if (info.file.status === "error") {
-        message.error(`${info.file.name} file upload failed.`);
+      if (file.status === "done") {
+        message.success(`${file.name} file uploaded successfully`);
+      } else if (file.status === "error") {
+        message.error(`${file.name} file upload failed.`);
       }
+      setFileList(fileList);
     },
   };
   type FieldType = {
@@ -50,7 +56,8 @@ export default function NewProduct() {
   };
 
   const onFinish: FormProps<FieldType>["onFinish"] = (values) => {
-    console.log("Success:", values);
+    console.log("Successff:", values);
+    message.success("New Product Created reated");
   };
 
   return (
@@ -65,14 +72,29 @@ export default function NewProduct() {
       autoComplete="off"
     >
       <Form.Item
-        rules={[{ required: true, message: "Please Upload Image!" }]}
-        name="upload"
+        rules={[
+          {
+            required: true,
+            message: "Please Upload Image!",
+            validator: (_, value) => {
+              if (fileList.some((file: any) => file.status !== "done")) {
+                return Promise.reject(
+                  new Error("File upload failed or is it s more than two!")
+                );
+              }
+              return Promise.resolve();
+            },
+          },
+        ]}
+        name="file"
         label="Upload Image"
         valuePropName="fileList"
         getValueFromEvent={normFile}
       >
-        <Upload {...props} multiple={false} name="logo" listType="picture">
-          <Button icon={<UploadOutlined />}>Click to upload</Button>
+        <Upload {...props} multiple={false} name="file" listType="picture">
+          <Button disabled={fileList.length >= 1} icon={<UploadOutlined />}>
+            Click to upload
+          </Button>
         </Upload>
       </Form.Item>
       <Form.Item<FieldType>
@@ -128,11 +150,7 @@ export default function NewProduct() {
       >
         <InputNumber addonAfter="$" size="large" min={1} max={100000} />
       </Form.Item>
-      <Form.Item<FieldType>
-        label="Saleprice"
-        name="Saleprice"
-        rules={[{ message: "Please input yourSaleprice!" }]}
-      >
+      <Form.Item<FieldType> label="Saleprice" name="Saleprice">
         <InputNumber addonAfter="$" size="large" min={1} max={100000} />
       </Form.Item>
       <Form.Item<FieldType>

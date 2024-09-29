@@ -2,11 +2,13 @@ import express from "express";
 import { connection } from "./DbConnection/connect.js";
 import cookieparser from "cookie-parser";
 import dotenv from "dotenv";
+import productrouter from "./router/admin/productRouter.js";
 import cors from "cors";
 import userrouter from "./router/userRouter.js";
 const app = express();
 dotenv.config();
 app.use(cookieparser());
+app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 connection();
 
@@ -22,6 +24,7 @@ app.use(
   })
 );
 app.use("/users", userrouter);
+app.use("/admin", productrouter);
 
 app.listen(process.env.PORT, () => {
   console.log("connected express");
