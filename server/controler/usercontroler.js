@@ -99,3 +99,25 @@ export const middleware = async (req, res, next) => {
     });
   }
 };
+
+export const AdminMiddleware = async (req, res, next) => {
+  try {
+    const token = req.cookies.jwt;
+    if (!token) {
+      throw new error("please login");
+    }
+
+    const { id } = await jwt.verify(token, process.env.secretTOK);
+    const find = User.findById(id);
+    if (find.role !== "admin") {
+      throw new Error("you are not admin");
+    }
+    req.user = find;
+    next();
+  } catch (err) {
+    res.status(404).json({
+      status: "failed",
+      message: err.message,
+    });
+  }
+};

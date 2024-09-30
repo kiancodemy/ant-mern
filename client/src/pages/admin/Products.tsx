@@ -1,8 +1,14 @@
-import { Button, Flex, Drawer } from "antd";
+import { Button, Flex, Drawer, Row } from "antd";
 import { useState } from "react";
+
 import NewProduct from "../../components/admin/NewProduct";
+import ProductCard from "../../components/admin/ProductCard";
+
 export default function Products() {
   const [open, setOpen] = useState(false);
+
+  const [loading, setloading] = useState(false);
+
   const showDrawer = () => {
     setOpen(true);
   };
@@ -18,6 +24,7 @@ export default function Products() {
           Add new Product
         </Button>
         <Drawer
+          loading={loading}
           title="Add New Product"
           placement="right"
           closable={true}
@@ -25,9 +32,10 @@ export default function Products() {
           open={open}
           key="right"
         >
-          <NewProduct></NewProduct>
+          <NewProduct setloading={setloading}></NewProduct>
         </Drawer>
       </Flex>
+      <ProductCard></ProductCard>
     </div>
   );
 }

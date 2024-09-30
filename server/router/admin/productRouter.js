@@ -1,7 +1,14 @@
 import express from "express";
+import {
+  CreateProduct,
+  UpdateProduct,
+  AllProducts,
+  deleteProduct,
+} from "../../controler/admin/productControler.js";
 import { addProduct } from "../../controler/admin/productControler.js";
 import { v2 as cloudinary } from "cloudinary";
 import multer from "multer";
+import { all } from "axios";
 cloudinary.config({
   cloud_name: "dsegkejic",
   api_key: process.env.APIKEY,
@@ -23,4 +30,8 @@ const router = express.Router();
 
 ///routers///
 router.post("/send", upload.single("file"), addProduct);
+router.post("/create", CreateProduct);
+router.delete("/delete/:id", deleteProduct);
+router.post("/update", UpdateProduct);
+router.get("/AllProducts", AllProducts);
 export default router;

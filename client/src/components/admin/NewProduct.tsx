@@ -7,15 +7,20 @@ import {
   Upload,
   message,
 } from "antd";
+import { setloading } from "../../types/user";
+
+import { useAdmincreateMutation } from "../../store/api/adminApi";
 import { useState } from "react";
 import { UploadOutlined } from "@ant-design/icons";
 import type { UploadProps } from "antd";
 import type { FormProps } from "antd";
 import { categories, brand } from "../../assets/admin/adminDashboard";
-export default function NewProduct() {
+
+export default function NewProduct({ setloading }: setloading) {
+  const [get, { isError, error }] = useAdmincreateMutation();
   const [fileList, setFileList] = useState<any>([]);
-  console.log("f", fileList);
-  ///upload image config
+
+  ///upload image configuration
 
   const normFile = (e: any) => {
     console.log("Upload event:", e);
@@ -53,12 +58,31 @@ export default function NewProduct() {
     Price?: number;
     Saleprice?: number;
     TotalStock?: number;
+    file: any;
+  };
+  ///submit function//
+
+  const onFinish: FormProps<FieldType>["onFinish"] = async (values) => {
+    try {
+      setloading(true);
+
+      let find = values.file.find((item: any) => item.status === "done");
+      const url = find.response.url;
+      delete values.file;
+      const all = { ...values, Image: url };
+
+      const info = await get(all).unwrap();
+      setloading(false);
+
+      message.success(info.message);
+    } catch (err) {
+      if (isError) {
+        message.error(error?.data?.message);
+      }
+    }
   };
 
-  const onFinish: FormProps<FieldType>["onFinish"] = (values) => {
-    console.log("Successff:", values);
-    message.success("New Product Created reated");
-  };
+  ///main tsx///
 
   return (
     <Form
@@ -67,7 +91,6 @@ export default function NewProduct() {
       labelCol={{ span: 12 }}
       wrapperCol={{ span: 20 }}
       style={{ maxWidth: 600 }}
-      initialValues={{ remember: true }}
       onFinish={onFinish}
       autoComplete="off"
     >
@@ -76,8 +99,11 @@ export default function NewProduct() {
           {
             required: true,
             message: "Please Upload Image!",
-            validator: (_, value) => {
-              if (fileList.some((file: any) => file.status !== "done")) {
+            validator: () => {
+              if (
+                fileList.some((file: any) => file.status === "error") ||
+                fileList.length === 0
+              ) {
                 return Promise.reject(
                   new Error("File upload failed or is it s more than two!")
                 );
@@ -162,7 +188,12 @@ export default function NewProduct() {
       </Form.Item>
 
       <Form.Item wrapperCol={{ span: 24 }}>
-        <Button block type="primary" htmlType="submit">
+        <Button
+          disabled={fileList.length === 0}
+          block
+          type="primary"
+          htmlType="submit"
+        >
           Submit
         </Button>
       </Form.Item>

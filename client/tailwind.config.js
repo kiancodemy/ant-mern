@@ -5,6 +5,7 @@ export default {
     extend: {
       colors: {
         side: "#F1F6F9",
+        light: "#F5F5F7",
       },
     },
   },
