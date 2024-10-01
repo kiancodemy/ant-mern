@@ -1,5 +1,7 @@
 import { configureStore } from "@reduxjs/toolkit";
 import { mainApi } from "./api/apislice";
+import authslice from "./slices/authslice";
+import productSlice from "./slices/productSlice";
 import {
   persistStore,
   persistReducer,
@@ -10,7 +12,7 @@ import {
   PURGE,
   REGISTER,
 } from "redux-persist";
-import authslice from "./slices/authslice";
+
 import storage from "redux-persist/lib/storage";
 
 import { combineReducers } from "redux";
@@ -18,12 +20,14 @@ const persistConfig = {
   key: "root",
   version: 1,
   storage,
+  blacklist: ["productAuth"],
 };
 
 const persistedReducer = persistReducer(
   persistConfig,
   combineReducers({
     auth: authslice,
+    productAuth: productSlice,
   })
 );
 
@@ -35,6 +39,7 @@ export const store = configureStore({
         ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
       },
     }).concat(mainApi.middleware),
+  devTools: true,
 });
 
 export type RootState = ReturnType<typeof store.getState>;

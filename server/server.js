@@ -4,6 +4,7 @@ import cookieparser from "cookie-parser";
 import dotenv from "dotenv";
 import productrouter from "./router/admin/productRouter.js";
 import cors from "cors";
+import router from "./router/product.js";
 import userrouter from "./router/userRouter.js";
 const app = express();
 dotenv.config();
@@ -25,6 +26,7 @@ app.use(
 );
 app.use("/users", userrouter);
 app.use("/admin", productrouter);
+app.use("/products",router);
 
 app.listen(process.env.PORT, () => {
   console.log("connected express");

@@ -19,7 +19,17 @@ export type productsType = {
   Category: string;
   Brand: string;
   Price: number;
-  Saleprice: number;
-  TotalStock?: number;
+  Saleprice?: number;
+
+  TotalStock: number;
   Image: string;
+};
+export type CategoryType = {
+  value: number;
+  label: String;
+};
+export type CategoriesType = {
+  key: number;
+  value: String;
+  label: String;
 };

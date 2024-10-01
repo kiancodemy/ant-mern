@@ -10,18 +10,31 @@ export const sidebarData = [
 ];
 
 export const categories = [
-  { value: "men", label: "Men" },
-  { value: "women", label: "Women" },
-  { value: "kids", label: "Kids" },
-  { value: "accessories", label: "Accessories" },
-  { value: "footwear", label: "Footwear" },
+  { key: 1, value: "men", label: "Men" },
+  { key: 2, value: "women", label: "Women" },
+  { key: 3, value: "kids", label: "Kids" },
+  { key: 4, value: "accessories", label: "Accessories" },
+  { key: 5, value: "footwear", label: "Footwear" },
+];
+export const Shopcategories = [
+  { value: 1, label: "Home" },
+  { value: 2, label: "Men" },
+
+  { value: 3, label: "Women" },
+  { value: 4, label: "Kids" },
+  { value: 5, label: "Accessories" },
+  { value: 6, label: "Footwear" },
 ];
 
 export const brand = [
-  { value: "nike", label: "Nike" },
-  { value: "adidas", label: "Adidas" },
-  { value: "puma", label: "Puma" },
-  { value: "levi", label: "Levi's" },
-  { value: "zara", label: "Zara" },
-  { value: "h&m", label: "H&M" },
+  { key: 1, value: "nike", label: "Nike" },
+  { key: 2, value: "adidas", label: "Adidas" },
+  { key: 3, value: "puma", label: "Puma" },
+  { key: 4, value: "levi", label: "Levi's" },
+  { key: 5, value: "zara", label: "Zara" },
+  { key: 6, value: "h&m", label: "H&M" },
+];
+export const sorting = [
+  { key: "0", value: "Low to Hight", label: "Low to Hight" },
+  { key: "1", value: "High to Low", label: "High to Low" },
 ];
