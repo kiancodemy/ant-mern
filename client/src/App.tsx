@@ -8,7 +8,7 @@ import Products from "./pages/admin/Products";
 import Orders from "./pages/admin/Orders";
 import Notfound from "./pages/notfound/Notfound";
 import Shoppingcomp from "./components/shopping/ShoppingComp";
-import Home from "./pages/shopping/Home";
+import Product from "./pages/shopping/product";
 import Listing from "./pages/shopping/Listing";
 import Checkout from "./pages/shopping/Checkout";
 import Acount from "./pages/shopping/Acount";
@@ -16,7 +16,7 @@ import Acount from "./pages/shopping/Acount";
 import Checkauth from "./components/checkAuth/Checkauth";
 export default function App() {
   return (
-    <div className="app">
+    <div className="app bg-[#e5e7eb]">
       <Routes>
         <Route path="" element={<Checkauth></Checkauth>}>
           <Route path="/auth" element={<Auth />}>
@@ -30,7 +30,7 @@ export default function App() {
             <Route path="products" element={<Products />} />
           </Route>
           <Route path="/shop" element={<Shoppingcomp />}>
-            <Route path="home" element={<Home />} />
+            <Route path="ProductId/:id" element={<Product />} />
             <Route path="listing" element={<Listing />} />
             <Route path="checkout" element={<Checkout />} />
             <Route path="account" element={<Acount />} />

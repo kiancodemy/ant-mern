@@ -8,10 +8,10 @@ import MainPage from "../../components/shopping/MainPage";
 export default function Listing() {
   return (
     <Row className=" sm:p-5 md:p-10">
-      <Col xs={{ span: 4 }} md={{ span: 6 }}>
+      <Col xs={{ span: 0 }} md={{ span: 6 }}>
         <Filter></Filter>
       </Col>
-      <Col xs={{ span: 20 }} md={{ span: 18 }}>
+      <Col xs={{ span: 22 }} md={{ span: 18 }}>
         <Flex justify="end" align="center" gap={4}>
           <SortComponent></SortComponent>
         </Flex>

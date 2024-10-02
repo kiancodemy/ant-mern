@@ -1,9 +1,15 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 
-const initialState: { sort: String; category: string; brand: string } = {
+const initialState: {
+  title: string;
+  sort: String;
+  category: string;
+  brand: string;
+} = {
   sort: "",
   category: "",
   brand: "",
+  title: "",
 };
 
 export const productSlice = createSlice({
@@ -19,9 +25,13 @@ export const productSlice = createSlice({
     setbrandd: (state, action) => {
       state.brand = action.payload;
     },
+    settitle: (state, action) => {
+      state.title = action.payload;
+    },
   },
 });
 
-export const { setsort, setcategory, setbrandd } = productSlice.actions;
+export const { setsort, setcategory, setbrandd, settitle } =
+  productSlice.actions;
 
 export default productSlice.reducer;

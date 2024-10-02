@@ -1,10 +1,44 @@
-import React from "react";
-import { Dropdown, Button } from "antd";
+import { Dropdown, Button, Space, Divider } from "antd";
+import {
+  DisconnectOutlined,
+  RetweetOutlined,
+  ColumnHeightOutlined,
+} from "@ant-design/icons";
 import type { MenuProps } from "antd";
+
 import { useAppDispatch } from "../../hooks/reduxHook";
-import { setsort } from "../../store/slices/productSlice";
+import {
+  setsort,
+  setbrandd,
+  setcategory,
+} from "../../store/slices/productSlice";
+
+import { brand, categories } from "../../assets/admin/adminDashboard";
 export default function SortComponent() {
   const dispatch = useAppDispatch();
+  const categoryitem: MenuProps["items"] = categories.map((item) => ({
+    label: (
+      <span
+        onClick={() => dispatch(setcategory(item.value))}
+        className="capitalize"
+      >
+        {item.label}
+      </span>
+    ),
+    key: item.key.toString(),
+  }));
+  const branditem: MenuProps["items"] = brand.map((item) => ({
+    label: (
+      <span
+        onClick={() => dispatch(setbrandd(item.value))}
+        className="capitalize"
+      >
+        {item.label}
+      </span>
+    ),
+    key: item.key.toString(),
+  }));
+
   const items: MenuProps["items"] = [
     {
       label: (
@@ -25,11 +59,55 @@ export default function SortComponent() {
       ),
       key: "1",
     },
+    {
+      label: (
+        <span onClick={() => dispatch(setsort("-2"))} className="capitalize">
+          Title:z-a
+        </span>
+      ),
+      key: "2",
+    },
+    {
+      label: (
+        <span onClick={() => dispatch(setsort("2"))} className="capitalize">
+          Title:a-z
+        </span>
+      ),
+      key: "3",
+    },
   ];
 
   return (
-    <Dropdown menu={{ items }} trigger={["click"]}>
-      <Button>Sort</Button>
-    </Dropdown>
+    <Space
+      className="mt-4"
+      split={<Divider className="md:hidden " type="vertical" />}
+    >
+      <Dropdown
+        className="md:hidden"
+        menu={{ items: branditem }}
+        trigger={["click"]}
+      >
+        <Button type="primary">
+          <DisconnectOutlined />
+          brand
+        </Button>
+      </Dropdown>
+      <Dropdown
+        className="md:hidden"
+        menu={{ items: categoryitem }}
+        trigger={["click"]}
+      >
+        <Button type="primary">
+          <RetweetOutlined />
+          Category
+        </Button>
+      </Dropdown>
+      <Dropdown menu={{ items }} trigger={["click"]}>
+        <Button type="primary">
+          <ColumnHeightOutlined />
+          Sort
+        </Button>
+      </Dropdown>
+    </Space>
   );
 }

@@ -57,7 +57,7 @@ export default function UpdateModel({
         name="Title"
         rules={[{ required: true, message: "Please input your Title!" }]}
       >
-        <Input />
+        <Input type="text" />
       </Form.Item>
 
       <Form.Item<FieldType>

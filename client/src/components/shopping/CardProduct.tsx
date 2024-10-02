@@ -1,14 +1,20 @@
 import { Col, Card, Image, Row, Flex, Button, Skeleton } from "antd";
 import { productsType } from "../../types/user";
 import { useAllProductssQuery } from "../../store/api/productapi";
-
+import { useNavigate } from "react-router-dom";
 import { useAppSelector } from "../../hooks/reduxHook";
 import { RootState } from "../../store/store";
 function CardProduct() {
-  const { category, sort, brand } = useAppSelector(
+  const navigate = useNavigate();
+  const { category, sort, brand, title } = useAppSelector(
     (state: RootState) => state.persistedReducer.productAuth
   );
-  const { data, isLoading } = useAllProductssQuery({ category, brand, sort });
+  const { data, isLoading } = useAllProductssQuery({
+    category,
+    brand,
+    sort,
+    title,
+  });
 
   return (
     <Skeleton loading={isLoading}>
@@ -24,7 +30,7 @@ function CardProduct() {
             <Col
               key={item._id}
               xs={{ span: 24 }}
-              sm={{ span: 24 }}
+              sm={{ span: 12 }}
               md={{ span: 12 }}
               lg={{ span: 8 }}
             >
@@ -76,6 +82,8 @@ function CardProduct() {
                   justify="space-between"
                 >
                   <Button
+                    onClick={() => navigate(`/shop/ProductId/${item._id}`)}
+                    block
                     disabled={item.TotalStock === 0}
                     className="capitalize"
                     type="primary"
