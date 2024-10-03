@@ -1,11 +1,12 @@
-import { Row, Col, Flex, Button, Dropdown, Space, Drawer } from "antd";
-
+import { Row, Col, Flex, Button, Dropdown, Space, Drawer, Badge } from "antd";
+import { RootState } from "../../store/store";
 import type { MenuProps } from "antd";
+import { useAppSelector } from "../../hooks/reduxHook";
 import { useState } from "react";
+import { Link } from "react-router-dom";
 import Navigation from "./Navigation";
 import {
   ShoppingCartOutlined,
-  UserOutlined,
   DownOutlined,
   LogoutOutlined,
 } from "@ant-design/icons";
@@ -13,6 +14,10 @@ import {
 import { MenuOutlined } from "@ant-design/icons";
 
 export default function Header() {
+  const count = useAppSelector(
+    (state: RootState) => state.persistedReducer.order.order.totalQuantity
+  );
+  console.log(count);
   const [openMenue, setopenMenue] = useState(false);
   const onClose = () => {
     setopenMenue(false);
@@ -49,7 +54,12 @@ export default function Header() {
             </div>
 
             <Flex justify="center" align="center" gap={15}>
-              <ShoppingCartOutlined className="text-xl" />
+              <Link to="/shop/checkout">
+                <Badge status="error" size="default" count={count}>
+                  <ShoppingCartOutlined className="text-xl" />
+                </Badge>
+              </Link>
+
               <Dropdown menu={{ items }} trigger={["click"]}>
                 <Space>
                   <Button>

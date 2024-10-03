@@ -16,7 +16,7 @@ import Acount from "./pages/shopping/Acount";
 import Checkauth from "./components/checkAuth/Checkauth";
 export default function App() {
   return (
-    <div className="app bg-[#e5e7eb]">
+    <div className="app">
       <Routes>
         <Route path="" element={<Checkauth></Checkauth>}>
           <Route path="/auth" element={<Auth />}>

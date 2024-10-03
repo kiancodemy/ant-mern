@@ -32,7 +32,7 @@ const extendedApi = mainApi.injectEndpoints({
     GetAllProducts: build.query({
       query: () => ({ url: "/admin/AllProducts", credentials: "include" }),
       providesTags: ["Allproducts"],
-      keepUnusedDataFor: 10,
+      keepUnusedDataFor: 1,
     }),
   }),
 });

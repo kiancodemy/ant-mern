@@ -1,8 +1,9 @@
 import { Form, Button, Input, Select, InputNumber, message } from "antd";
-
+import { useEffect } from "react";
 import { useAdmiupdateMutation } from "../../store/api/adminApi";
 
 import type { FormProps } from "antd";
+
 import { categories, brand } from "../../assets/admin/adminDashboard";
 
 export default function UpdateModel({
@@ -15,7 +16,13 @@ export default function UpdateModel({
   const [get, { data: info, isError, error }] = useAdmiupdateMutation();
 
   ///upload image configuration
-
+  const [form] = Form.useForm();
+  const resetForm = () => {
+    form.resetFields();
+  };
+  useEffect(() => {
+    resetForm();
+  }, [UpdatedItem]);
   type FieldType = {
     Title?: string;
     Description?: string;
@@ -32,6 +39,7 @@ export default function UpdateModel({
       await get({ ...values, _id: UpdatedItem._id });
 
       setIsModalOpen(false);
+
       message.success(info.message);
     } catch (err) {
       if (isError) {
@@ -44,16 +52,24 @@ export default function UpdateModel({
 
   return (
     <Form
+      form={form}
       name="basic"
       wrapperCol={{ span: 20 }}
       style={{ maxWidth: 600 }}
-      initialValues={{ remember: true }}
       onFinish={onFinish}
       autoComplete="off"
+      initialValues={{
+        Title: UpdatedItem?.Title,
+        Description: UpdatedItem?.Description,
+        Category: UpdatedItem?.Category,
+        Brand: UpdatedItem?.Brand,
+        Price: UpdatedItem?.Price,
+        Salepric: UpdatedItem?.Saleprice,
+        TotalStock: UpdatedItem?.TotalStock || 1,
+      }}
     >
       <Form.Item<FieldType>
         label="Title"
-        initialValue={UpdatedItem.Title}
         name="Title"
         rules={[{ required: true, message: "Please input your Title!" }]}
       >
@@ -62,7 +78,6 @@ export default function UpdateModel({
 
       <Form.Item<FieldType>
         label="Description"
-        initialValue={UpdatedItem.Description}
         name="Description"
         rules={[{ required: true, message: "Please input your  Description!" }]}
       >
@@ -72,7 +87,6 @@ export default function UpdateModel({
       <Form.Item<FieldType>
         label="Category"
         name="Category"
-        initialValue={UpdatedItem.Category}
         rules={[{ required: true, message: "Please input your  Category!" }]}
       >
         <Select
@@ -87,7 +101,6 @@ export default function UpdateModel({
 
       <Form.Item<FieldType>
         label="Brand"
-        initialValue={UpdatedItem.Brand}
         name="Brand"
         rules={[{ required: true, message: "Please input your  Brand!" }]}
       >
@@ -103,26 +116,20 @@ export default function UpdateModel({
 
       <Form.Item<FieldType>
         label="Price"
-        initialValue={UpdatedItem.Price}
         name="Price"
         rules={[{ required: true, message: "Please input your Price!" }]}
       >
         <InputNumber addonAfter="$" size="large" min={1} max={100000} />
       </Form.Item>
-      <Form.Item<FieldType>
-        initialValue={UpdatedItem.Saleprice}
-        label="Saleprice"
-        name="Saleprice"
-      >
+      <Form.Item<FieldType> label="Saleprice" name="Saleprice">
         <InputNumber addonAfter="$" size="large" min={1} max={100000} />
       </Form.Item>
       <Form.Item<FieldType>
-        initialValue={UpdatedItem.TotalStock || 1}
         label="TotalStock"
         name="TotalStock"
         rules={[{ required: true, message: "Please input your TotalStock!" }]}
       >
-        <InputNumber size="large" min={1} max={100000} />
+        <InputNumber size="large" />
       </Form.Item>
 
       <Form.Item wrapperCol={{ span: 24 }}>

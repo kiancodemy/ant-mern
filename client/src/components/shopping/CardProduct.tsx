@@ -17,14 +17,14 @@ function CardProduct() {
   });
 
   return (
-    <Skeleton loading={isLoading}>
-      <Row
-        gutter={16}
-        wrap
-        align="top"
-        justify="start"
-        className="mt-8 gap-y-8 md:pb-20 pb-10 px-8 rounded-md overflow-hidden"
-      >
+    <Row
+      gutter={16}
+      wrap
+      align="top"
+      justify="start"
+      className="mt-8 gap-y-8 md:pb-20 pb-10 px-8 rounded-md overflow-hidden"
+    >
+      <Skeleton loading={isLoading}>
         {data?.info?.map((item: productsType) => {
           return (
             <Col
@@ -96,8 +96,8 @@ function CardProduct() {
             </Col>
           );
         })}
-      </Row>
-    </Skeleton>
+      </Skeleton>
+    </Row>
   );
 }
 export default CardProduct;

@@ -3,7 +3,6 @@ import { Col, Flex, Row } from "antd";
 
 import SortComponent from "../../components/shopping/SortComponent";
 import CardProduct from "../../components/shopping/CardProduct";
-import MainPage from "../../components/shopping/MainPage";
 
 export default function Listing() {
   return (

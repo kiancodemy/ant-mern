@@ -12,20 +12,17 @@ function ProductCard() {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [UpdatedItem, setUpdatedItem] = useState({});
 
-  const openModels = (data: any) => {
-    console.log(data);
-    setIsModalOpen(true);
-    setUpdatedItem(data);
-  };
-
   const handleCancel = () => {
     setIsModalOpen(false);
   };
   //fetch all data config//
   const { data, isLoading } = useGetAllProductsQuery(1);
-  const [deleting, { isLoading: isDeleting }] = useAdmindeleteMutation();
-  const [open, setOpen] = useState<boolean>(false);
-  const [loading, setLoading] = useState<boolean>(false);
+  const openModels = (data: any) => {
+    setUpdatedItem(() => data);
+
+    setIsModalOpen(true);
+  };
+  const [deleting] = useAdmindeleteMutation();
 
   //delte titen function//
   const DeleteFunction = async (id: string) => {
