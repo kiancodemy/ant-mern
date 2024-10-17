@@ -1,10 +1,10 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { calculator } from "../calculator";
 const initialState: {
-  address: { City: ""; Street: ""; Adress: ""; Postalcode: "" };
+  address: { City: string; Street: string; Adress: string; Postalcode: string };
   order: any;
 } = {
-  address: "",
+  address: { City: "", Street: "", Adress: "", Postalcode: "" },
   order: { totalQuantity: 0, totalTax: 0, totalprice: 0, AllOrders: [] },
 };
 
@@ -15,9 +15,14 @@ export const orderSlice = createSlice({
     setAddress: (state, action) => {
       state.address = action.payload;
     },
+    deleteOrder: (state, action) => {
+      state.order.AllOrders = state.order.AllOrders.filter(
+        (item: any) => item._id !== action.payload
+      );
+      calculator(state.order);
+    },
 
     setOrder: (state, action) => {
-      state.order.to;
       const find = state.order.AllOrders.find(
         (item: any) => item._id === action.payload._id
       );
@@ -31,9 +36,17 @@ export const orderSlice = createSlice({
         calculator(state.order);
       }
     },
+    clearOrder: (state) => {
+      state.order = {
+        totalQuantity: 0,
+        totalTax: 0,
+        totalprice: 0,
+        AllOrders: [],
+      };
+    },
   },
 });
 
-export const { setAddress, setOrder } = orderSlice.actions;
+export const { setAddress, setOrder, deleteOrder,clearOrder } = orderSlice.actions;
 
 export default orderSlice.reducer;

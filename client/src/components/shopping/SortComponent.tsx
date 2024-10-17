@@ -79,7 +79,7 @@ export default function SortComponent() {
 
   return (
     <Space
-      className="mt-4"
+      className="mt-4 max-w-[320px]"
       split={<Divider className="md:hidden " type="vertical" />}
     >
       <Dropdown

@@ -4,9 +4,11 @@ import { useAppSelector } from "../../hooks/reduxHook";
 import { RootState } from "../../store/store";
 import { useLocation } from "react-router-dom";
 import { Navigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 export default function Checkauth() {
   const location = useLocation();
+  console.log(1);
 
   const { username, role } = useAppSelector(
     (state: RootState) => state.persistedReducer.auth.userinfo
@@ -30,7 +32,12 @@ export default function Checkauth() {
     !location.pathname.includes("admin")
   ) {
     return <Navigate to="/admin/Dashboard"></Navigate>;
-  } else {*/
-  return <Outlet></Outlet>;
-  /*}*/
+  } else {
+    
+  }*/
+  if (!username) {
+    return <Navigate replace to="/auth/login"></Navigate>;
+  } else {
+    return <Navigate replace to="/shop/listing"></Navigate>;
+  }
 }

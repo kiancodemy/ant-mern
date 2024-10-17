@@ -1,44 +1,63 @@
+import { Suspense, lazy } from "react";
 import { Routes, Route } from "react-router-dom";
-import Auth from "./components/auth/Auth";
-import Signup from "./pages/auth/Signup";
-import Login from "./pages/auth/Login";
-import Admin from "./components/admin/Admin";
-import Dashboard from "./pages/admin/Dashboard";
-import Products from "./pages/admin/Products";
-import Orders from "./pages/admin/Orders";
-import Notfound from "./pages/notfound/Notfound";
-import Shoppingcomp from "./components/shopping/ShoppingComp";
-import Product from "./pages/shopping/product";
-import Listing from "./pages/shopping/Listing";
-import Checkout from "./pages/shopping/Checkout";
-import Acount from "./pages/shopping/Acount";
-
+import AvoidAdmin from "./components/checkAuth/AvoidAdmin";
+const Auth = lazy(() => import("./components/auth/Auth"));
+const Admin = lazy(() => import("./components/admin/Admin"));
+const Signup = lazy(() => import("./pages/auth/Signup"));
+const Login = lazy(() => import("./pages/auth/Login"));
+import Loading from "./components/loading/Loadin";
+//const Adminlazy(()=>import() "./components/admin/Admin";
+const Dashboard = lazy(() => import("./pages/admin/Dashboard"));
+const Products = lazy(() => import("./pages/admin/Products"));
+const Orders = lazy(() => import("./pages/admin/Orders"));
+const Nopage = lazy(() => import("./components/Nopage/Nopage"));
+const Shoppingcomp = lazy(() => import("./components/shopping/ShoppingComp"));
+const Product = lazy(() => import("./pages/shopping/Product"));
+const Listing = lazy(() => import("./pages/shopping/Listing"));
+const AdressCheckout = lazy(() => import("./pages/shopping/AdressCheckout"));
+const Acount = lazy(() => import("./pages/shopping/Acount"));
+const Procheck = lazy(() => import("./pages/shopping/Procheck"));
+import AdminCheck from "./components/checkAuth/AdminCheck";
+const Finalpay = lazy(() => import("./pages/shopping/Finalpay"));
+import LogAgain from "./components/checkAuth/LogAgain";
 import Checkauth from "./components/checkAuth/Checkauth";
+import CheckoutAuth from "./components/checkAuth/CheckoutAuth";
 export default function App() {
   return (
     <div className="app">
-      <Routes>
-        <Route path="" element={<Checkauth></Checkauth>}>
-          <Route path="/auth" element={<Auth />}>
-            <Route path="login" element={<Login />} />
-            <Route path="signup" element={<Signup />} />
+      <Suspense fallback={<Loading></Loading>}>
+        <Routes>
+          <Route path="/" element={<Checkauth></Checkauth>}></Route>
+          <Route path="auth" element={<Auth />}>
+            <Route path="" element={<LogAgain></LogAgain>}>
+              <Route path="login" element={<Login />} />
+              <Route path="signup" element={<Signup />} />
+            </Route>
           </Route>
 
-          <Route path="/admin" element={<Admin />}>
-            <Route path="orders" element={<Orders />} />
-            <Route path="Dashboard" element={<Dashboard />} />
-            <Route path="products" element={<Products />} />
+          <Route path="admin" element={<Admin />}>
+            <Route path="" element={<AdminCheck></AdminCheck>}>
+              <Route path="orders" element={<Orders />} />
+              <Route path="Dashboard" element={<Dashboard />} />
+              <Route path="products" element={<Products />} />
+            </Route>
           </Route>
-          <Route path="/shop" element={<Shoppingcomp />}>
-            <Route path="ProductId/:id" element={<Product />} />
-            <Route path="listing" element={<Listing />} />
-            <Route path="checkout" element={<Checkout />} />
-            <Route path="account" element={<Acount />} />
+          <Route path="shop" element={<Shoppingcomp />}>
+            <Route path="" element={<AvoidAdmin></AvoidAdmin>}>
+              <Route path="ProductId/:id" element={<Product />} />
+              <Route path="listing" element={<Listing />} />
+              <Route path="address" element={<AdressCheckout />} />
+              <Route path="checkout" element={<Procheck />} />
+
+              <Route path="" element={<CheckoutAuth></CheckoutAuth>}>
+                <Route path="pay" element={<Finalpay />} />
+                <Route path="account" element={<Acount />} />
+              </Route>
+            </Route>
           </Route>
-          <Route path="/notfoud" element={<Notfound />}></Route>
-        </Route>
-      </Routes>
+          <Route path="*" element={<Nopage />}></Route>
+        </Routes>
+      </Suspense>
     </div>
   );
 }
-Shoppingcomp;

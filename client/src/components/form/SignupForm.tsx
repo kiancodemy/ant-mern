@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import type { FormProps } from "antd";
 import { useEffect } from "react";
-
+import { useLocation } from "react-router-dom";
 type FieldType = {
   username?: string;
   password?: string;
@@ -22,29 +22,38 @@ export default function SignupForm() {
   const onFinish: FormProps<FieldType>["onFinish"] = async (values) => {
     await get(values);
   };
+  ///query check//
+  const location = useLocation();
+  const queryParams = new URLSearchParams(location.search);
+  const redirect = queryParams.get("redirect");
   useEffect(() => {
     if (isError) {
       console.log(error);
       messageApi.open({
         type: "error",
         content: error?.data?.message,
-        duration: 3,
+        duration: 2,
       });
     } else if (isSuccess) {
       console.log(data);
-      messageApi.open({
-        type: "success",
-        content: data.message,
-        duration: 2,
-      });
-      setTimeout(() => {
-        navigate("/auth/login");
-      }, 2000);
+      messageApi
+        .open({
+          type: "success",
+          content: data.message,
+          duration: 2,
+        })
+        .then(() => {
+          if (redirect) {
+            navigate(`/auth/login?redirect=${redirect}`);
+          } else {
+            navigate("/auth/login");
+          }
+        });
     }
   }, [isError, error, isSuccess, data, error, navigate]);
 
   return (
-    <div className=" max-w-[500px] py-[10px] px-[20px]">
+    <div className="max-w-[500px] py-[10px] px-[20px]">
       {contextHolder}
       <Flex gap={20} vertical>
         <h1 className="font-bold capitalize text-[30px] text-center">
@@ -56,7 +65,11 @@ export default function SignupForm() {
           justify="center"
         >
           <h1>already have acount?</h1>
-          <Link to="/auth/login">login</Link>
+          <Link
+            to={redirect ? `/auth/login?redirect=${redirect}` : "/auth/login"}
+          >
+            login
+          </Link>
         </Flex>
         <Form
           name="basic"

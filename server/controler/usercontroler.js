@@ -42,6 +42,7 @@ export const login = async (req, res) => {
     }
     const token = await tokens(find);
     const data = {
+      id: find._id,
       username: find.username,
       email: find.email,
       role: find.role,

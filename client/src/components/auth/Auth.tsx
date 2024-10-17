@@ -27,7 +27,11 @@ export default function Auth() {
           </Flex>
         </Col>
         <Col xs={{ span: 24 }} lg={{ span: 12 }}>
-          <Flex style={{ minHeight: "100vh" }} justify="center" align="center">
+          <Flex
+            style={{ minHeight: "100vh", position: "relative" }}
+            justify="center"
+            align="center"
+          >
             <Outlet></Outlet>
           </Flex>
         </Col>

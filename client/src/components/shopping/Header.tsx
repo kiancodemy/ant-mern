@@ -1,35 +1,40 @@
-import { Row, Col, Flex, Button, Dropdown, Space, Drawer, Badge } from "antd";
+import {
+  Row,
+  Col,
+  Flex,
+  Button,
+  Dropdown,
+  Space,
+  Drawer,
+  Badge,
+  message,
+} from "antd";
+
 import { RootState } from "../../store/store";
 import type { MenuProps } from "antd";
 import { useAppSelector } from "../../hooks/reduxHook";
 import { useState } from "react";
 import { Link } from "react-router-dom";
+import { LogouButton } from "../Buttons/LogoutButton";
 import Navigation from "./Navigation";
-import {
-  ShoppingCartOutlined,
-  DownOutlined,
-  LogoutOutlined,
-} from "@ant-design/icons";
+import { ShoppingCartOutlined, DownOutlined } from "@ant-design/icons";
 
 import { MenuOutlined } from "@ant-design/icons";
 
 export default function Header() {
+  const [messageApi, contextHolder] = message.useMessage();
+
   const count = useAppSelector(
     (state: RootState) => state.persistedReducer.order.order.totalQuantity
   );
-  console.log(count);
+
   const [openMenue, setopenMenue] = useState(false);
   const onClose = () => {
     setopenMenue(false);
   };
   const items: MenuProps["items"] = [
     {
-      label: (
-        <span>
-          <LogoutOutlined />
-          <span>LogOut</span>
-        </span>
-      ),
+      label: <Link to="/shop/account">Account</Link>,
       key: "0",
     },
 
@@ -37,12 +42,13 @@ export default function Header() {
       type: "divider",
     },
     {
-      label: <span>LogOut</span>,
+      label: <LogouButton></LogouButton>,
       key: "1",
     },
   ];
   return (
     <div>
+      {contextHolder}
       <Row className="bg-gray-100 py-4" justify="center">
         <Col span={22}>
           <Flex align="center" className="md:justify-between justify-end">
@@ -50,7 +56,7 @@ export default function Header() {
               Ecommerce
             </span>
             <div className="hidden md:block">
-              <Navigation></Navigation>
+              <Navigation onClose={onClose}></Navigation>
             </div>
 
             <Flex justify="center" align="center" gap={15}>
@@ -77,7 +83,7 @@ export default function Header() {
         </Col>
       </Row>
       <Drawer title="Basic Drawer" onClose={onClose} open={openMenue}>
-        <Navigation></Navigation>
+        <Navigation onClose={onClose}></Navigation>
       </Drawer>
     </div>
   );

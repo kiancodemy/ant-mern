@@ -8,7 +8,7 @@ import {
 const router = express.Router();
 router.post("/register", create);
 router.post("/login", login);
-router.post("/logout", logout);
+router.get("/logout", logout);
 router.post("/checkauth", middleware);
 
 export default router;

@@ -1,5 +1,6 @@
 export type usertype = {
   userinfo: {
+    id: string;
     username: string;
     email: string;
     role: string;
@@ -23,6 +24,7 @@ export type productsType = {
 
   TotalStock: number;
   Image: string;
+  quantity?: number;
 };
 export type CategoryType = {
   value: number;

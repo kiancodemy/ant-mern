@@ -1,11 +1,14 @@
 import { useParams } from "react-router-dom";
 import { setOrder } from "../../store/slices/OrderSlice";
-import { useAppSelector, useAppDispatch } from "../../hooks/reduxHook";
+import { useAppDispatch } from "../../hooks/reduxHook";
 import { useProductByIdQuery } from "../../store/api/productapi";
 import { Button, Col, Row, Image, Flex, Card, Divider, Select } from "antd";
 import { useState } from "react";
+import { DoubleLeftOutlined } from "@ant-design/icons";
+import { useNavigate } from "react-router-dom";
 export default function Product() {
   const [quantity, setquantity] = useState<number>(1);
+  const navigate = useNavigate();
 
   ///change quantity
   const handleChange = (value: number) => {
@@ -25,6 +28,7 @@ export default function Product() {
   const handlesubmit = () => {
     console.log({ ...data, quantity });
     dispatch(setOrder({ ...data, quantity }));
+    navigate(`/shop/checkout`);
   };
 
   const generateOptions = (num: number) =>
@@ -105,15 +109,26 @@ export default function Product() {
                 />
               </Flex>
               <Divider></Divider>
-
-              <Button
-                size="large"
-                onClick={handlesubmit}
-                disabled={data?.TotalStock === 0}
-                type="primary"
-              >
-                <span className="text-lg py-3 capitalize"> add to cart</span>
-              </Button>
+              <Flex vertical gap={10}>
+                <Button
+                  size="large"
+                  onClick={handlesubmit}
+                  disabled={data?.TotalStock === 0}
+                  type="primary"
+                >
+                  <span className="text-lg py-3 capitalize"> add to cart</span>
+                </Button>
+                <Button
+                  onClick={() => navigate(`/shop/listing`)}
+                  block
+                  className="capitalize"
+                  type="primary"
+                  size="large"
+                >
+                  <DoubleLeftOutlined />
+                  back
+                </Button>
+              </Flex>
             </Flex>
           </Card>
         </Col>
