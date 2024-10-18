@@ -122,3 +122,31 @@ export const AdminMiddleware = async (req, res, next) => {
     });
   }
 };
+
+export const updateUser = async (req, res) => {
+  const { username, email, password } = req.body;
+
+  try {
+    let find = await User.findById(req.params.id);
+    if (!find) {
+      throw new Error("user is not found");
+    }
+    find.username = username || find.username;
+    find.email = email || find.email;
+    if (password) {
+      find.password = password || find.password;
+    }
+    await find.save();
+    res.status(200).json({
+      username: find.username,
+      email: find.email,
+      id: find._id,
+      role: find.role,
+    });
+  } catch (err) {
+    res.status(400).json({
+      status: "failed",
+      message: err.message,
+    });
+  }
+};

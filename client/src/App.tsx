@@ -27,14 +27,13 @@ export default function App() {
     <div className="app">
       <Suspense fallback={<Loading></Loading>}>
         <Routes>
-          <Route path="/" element={<Checkauth></Checkauth>}></Route>
+          {<Route path="/" element={<Checkauth></Checkauth>}></Route>}
           <Route path="auth" element={<Auth />}>
             <Route path="" element={<LogAgain></LogAgain>}>
               <Route path="login" element={<Login />} />
               <Route path="signup" element={<Signup />} />
             </Route>
           </Route>
-
           <Route path="admin" element={<Admin />}>
             <Route path="" element={<AdminCheck></AdminCheck>}>
               <Route path="orders" element={<Orders />} />

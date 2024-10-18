@@ -89,7 +89,7 @@ export const UpdateProduct = async (req, res) => {
     find.Brand = updated.Brand || find.Brand;
     find.Price = updated.Price || find.Price;
     find.Saleprice = updated.Saleprice || find.Saleprice;
-    find.TotalStock = updated.TotalStock || find.TotalStock;
+    find.TotalStock = updated.TotalStock ?? find.TotalStock;
     find.Image = updated.Image || find.Image;
     await find.save();
 

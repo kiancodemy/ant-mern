@@ -1,5 +1,5 @@
 import React from "react";
-import UserAccount from "../../User/UserAccount";
+import UserAccount from "../../components/User/UserAccount";
 export default function Acount() {
   return (
     <>

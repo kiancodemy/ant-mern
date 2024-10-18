@@ -1,11 +1,11 @@
 import { defineConfig } from "cypress";
 import vitePreprocessor from "cypress-vite";
+
 export default defineConfig({
-  component: {
-    devServer: {
-      framework: "react",
-      bundler: "vite",
-      viteConfig: vitePreprocessor(),
+  e2e: {
+    setupNodeEvents(on) {
+      on("file:preprocessor", vitePreprocessor());
     },
+    baseUrl: "http://localhost:5173",
   },
 });

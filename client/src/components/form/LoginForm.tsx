@@ -14,8 +14,6 @@ type FieldType = {
 };
 
 export default function LoginForm() {
-  const navigate = useNavigate();
-
   ///rtk query config//
   const [get, { isLoading, data, isSuccess, isError, error }] =
     useLoginMutation();
