@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import { useAppDispatch } from "../../hooks/reduxHook";
 import { loginUser } from "../../store/slices/authslice";
 import { useLoginMutation } from "../../store/api/userapi";
-import { useNavigate } from "react-router-dom";
+
 import { useEffect } from "react";
 import { useLocation } from "react-router-dom";
 import type { FormProps } from "antd";
@@ -45,11 +45,12 @@ export default function LoginForm() {
   };
 
   return (
-    <div className="max-w-[500px] py-[10px] px-[20px]">
+    <div className="max-w-[500px] py-[10px] px-[25px]">
       {contextHolder}
       <Flex gap={20} vertical>
         <h1 className="font-bold capitalize text-[30px] text-center">login </h1>
         <Flex
+          align="center"
           gap={10}
           className="lg:text-[20px] font-semibold capitalize"
           justify="center"
@@ -70,6 +71,7 @@ export default function LoginForm() {
           autoComplete="off"
         >
           <Form.Item<FieldType>
+            data-test="emailer"
             label="Email"
             name="email"
             rules={[{ required: true, message: "Please input your email!" }]}
@@ -78,6 +80,7 @@ export default function LoginForm() {
           </Form.Item>
 
           <Form.Item<FieldType>
+            data-test="passworder"
             label="Password"
             name="password"
             rules={[{ required: true, message: "Please input your password!" }]}
@@ -91,7 +94,13 @@ export default function LoginForm() {
               sm: { offset: 8, span: 16 },
             }}
           >
-            <Button block loading={isLoading} type="primary" htmlType="submit">
+            <Button
+              data-test="submitter"
+              block
+              loading={isLoading}
+              type="primary"
+              htmlType="submit"
+            >
               Submit
             </Button>
           </Form.Item>

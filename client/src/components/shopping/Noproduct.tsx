@@ -9,7 +9,11 @@ const Noproduct: React.FC = () => {
       status="404"
       subTitle="Sorry, the page you visited does not exist."
       extra={
-        <Button onClick={() => navigate("/shop/listing")} type="primary">
+        <Button
+          data-test="noproduct"
+          onClick={() => navigate("/shop/listing")}
+          type="primary"
+        >
           Select Product
         </Button>
       }

@@ -4,7 +4,7 @@ import AvoidAdmin from "./components/checkAuth/AvoidAdmin";
 const Auth = lazy(() => import("./components/auth/Auth"));
 const Admin = lazy(() => import("./components/admin/Admin"));
 const Signup = lazy(() => import("./pages/auth/Signup"));
-const Login = lazy(() => import("./pages/auth/Login"));
+import Login from "./pages/auth/Login";
 import Loading from "./components/loading/Loadin";
 //const Adminlazy(()=>import() "./components/admin/Admin";
 const Dashboard = lazy(() => import("./pages/admin/Dashboard"));
@@ -27,7 +27,7 @@ export default function App() {
     <div className="app">
       <Suspense fallback={<Loading></Loading>}>
         <Routes>
-          {<Route path="/" element={<Checkauth></Checkauth>}></Route>}
+          <Route path="/" element={<Checkauth></Checkauth>}></Route>
           <Route path="auth" element={<Auth />}>
             <Route path="" element={<LogAgain></LogAgain>}>
               <Route path="login" element={<Login />} />
