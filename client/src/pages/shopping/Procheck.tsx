@@ -14,7 +14,6 @@ export default function Procheck() {
   );
 
   /// all
- 
 
   ///submit function///
 
@@ -91,7 +90,13 @@ export default function Procheck() {
               continue
             </Button>
             <Link to="/shop/listing">
-              <Button className="mt-4" block type="primary" htmlType="submit">
+              <Button
+                data-test="back"
+                className="mt-4"
+                block
+                type="primary"
+                htmlType="submit"
+              >
                 back
               </Button>
             </Link>

@@ -25,6 +25,7 @@ export default function Navigation({ onClose }: close) {
               onClick={() => NavigateHandler(item.label)}
               className="text-lg font-semibold"
               key={item.value}
+              data-test={item.data}
             >
               {item.label}
             </Button>

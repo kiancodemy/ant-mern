@@ -17,13 +17,13 @@ export const categories = [
   { key: 5, value: "footwear", label: "Footwear" },
 ];
 export const Shopcategories = [
-  { value: 1, label: "Home" },
-  { value: 2, label: "Men" },
+  { value: 1, label: "Home", data: "Home" },
+  { value: 2, label: "Men", data: "Men" },
 
-  { value: 3, label: "Women" },
-  { value: 4, label: "Kids" },
-  { value: 5, label: "Accessories" },
-  { value: 6, label: "Footwear" },
+  { value: 3, label: "Women", data: "Women" },
+  { value: 4, label: "Kids", data: "Kids" },
+  { value: 5, label: "Accessories", data: "Accessories" },
+  { value: 6, label: "Footwear", data: "Footwear" },
 ];
 
 export const brand = [

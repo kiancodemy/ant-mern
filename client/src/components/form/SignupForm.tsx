@@ -81,6 +81,7 @@ export default function SignupForm() {
           autoComplete="off"
         >
           <Form.Item<FieldType>
+            data-test="usernames"
             label="Username"
             name="username"
             rules={[{ required: true, message: "Please input your username!" }]}
@@ -88,6 +89,7 @@ export default function SignupForm() {
             <Input />
           </Form.Item>
           <Form.Item<FieldType>
+            data-test="emails"
             label="Email"
             name="email"
             rules={[{ required: true, message: "Please input your email!" }]}
@@ -96,6 +98,7 @@ export default function SignupForm() {
           </Form.Item>
 
           <Form.Item<FieldType>
+            data-test="passwords"
             label="Password"
             name="password"
             rules={[{ required: true, message: "Please input your password!" }]}
@@ -109,7 +112,13 @@ export default function SignupForm() {
               sm: { offset: 8, span: 16 },
             }}
           >
-            <Button loading={isLoading} block type="primary" htmlType="submit">
+            <Button
+              data-test="signbutton"
+              loading={isLoading}
+              block
+              type="primary"
+              htmlType="submit"
+            >
               Signup
             </Button>
           </Form.Item>

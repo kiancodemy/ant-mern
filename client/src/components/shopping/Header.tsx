@@ -60,15 +60,15 @@ export default function Header() {
             </div>
 
             <Flex justify="center" align="center" gap={15}>
-              <Link to="/shop/checkout">
+              <Link data-test="icon" to="/shop/checkout">
                 <Badge status="error" size="default" count={count}>
                   <ShoppingCartOutlined className="text-xl" />
                 </Badge>
               </Link>
 
-              <Dropdown menu={{ items }} trigger={["click"]}>
+              <Dropdown data-test='down' menu={{ items }} trigger={["click"]}>
                 <Space>
-                  <Button>
+                  <Button data-test="droper">
                     User
                     <DownOutlined />
                   </Button>

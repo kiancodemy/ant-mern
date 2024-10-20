@@ -35,3 +35,6 @@
 //     }
 //   }
 // }
+Cypress.Commands.add("getdata", (dataTestAttribute) => {
+  return cy.get(`[data-test="${dataTestAttribute}"]`);
+});

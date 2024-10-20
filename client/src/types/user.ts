@@ -27,6 +27,7 @@ export type productsType = {
   quantity?: number;
 };
 export type CategoryType = {
+  data?: string;
   value: number;
   label: String;
 };

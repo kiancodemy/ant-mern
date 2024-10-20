@@ -103,6 +103,7 @@ export default function AdressCheckout() {
           >
             <Flex className="flex flex-col gap-y-2 md:gap-y-4">
               <Form.Item<FieldType>
+                data-test="city"
                 label="City"
                 name="City"
                 rules={[{ required: true, message: "Please input your City!" }]}
@@ -110,6 +111,7 @@ export default function AdressCheckout() {
                 <Input size="large" />
               </Form.Item>
               <Form.Item<FieldType>
+                data-test="street"
                 label="Street"
                 name="Street"
                 rules={[
@@ -119,6 +121,7 @@ export default function AdressCheckout() {
                 <Input size="large" type="text" />
               </Form.Item>
               <Form.Item<FieldType>
+                data-test="adress"
                 label="Adress"
                 name="Adress"
                 rules={[
@@ -129,6 +132,7 @@ export default function AdressCheckout() {
               </Form.Item>
 
               <Form.Item<FieldType>
+                data-test="postal"
                 label="Postal code"
                 name="Postalcode"
                 rules={[
@@ -139,11 +143,17 @@ export default function AdressCheckout() {
               </Form.Item>
 
               <Form.Item wrapperCol={{ span: 24 }}>
-                <Button block type="primary" htmlType="submit">
+                <Button
+                  data-test="continue"
+                  block
+                  type="primary"
+                  htmlType="submit"
+                >
                   Continue
                 </Button>
                 <Link to="/shop/listing">
                   <Button
+                    data-test="backer"
                     className="mt-4"
                     block
                     type="primary"
