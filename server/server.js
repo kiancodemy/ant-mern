@@ -14,15 +14,11 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 connection();
 
-///router config
-
-//corse config
+// middleWares //
 app.use(
   cors({
-    origin: "http://localhost:5173",
-    credentials: true, //
-
-    /*allowedHeaders: ["Content-Type", "Authorization"],*/
+    origin: "http://localhost:3000",
+    credentials: true,
   })
 );
 app.use("/users", userrouter);

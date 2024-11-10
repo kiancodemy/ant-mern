@@ -15,7 +15,13 @@ const extendedApi = mainApi.injectEndpoints({
         credentials: "include",
       }),
     }),
+    Carousel: build.query({
+      query: () => ({
+        url: `/products/carousel`,
+      }),
+    }),
   }),
 });
 
-export const { useAllProductssQuery, useProductByIdQuery } = extendedApi;
+export const { useAllProductssQuery, useProductByIdQuery, useCarouselQuery } =
+  extendedApi;

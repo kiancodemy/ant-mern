@@ -34,16 +34,12 @@ export default function Finalpay() {
     (state: RootState) => state.persistedReducer.order.order
   );
 
-  //use eefect//
-
-  //use effect//
-
   useEffect(() => {
     if (!City || !Street || !Adress || !Postalcode) {
       navigate("/shop/address");
     }
   }, [City, Street, Adress, Postalcode]);
-  ///useeffect//
+
   useEffect(() => {
     if (AllOrders.length === 0) {
       messageApi
@@ -55,13 +51,8 @@ export default function Finalpay() {
         .then(() => {
           navigate("/shop/listing");
         });
-
-      //navigate("/shop/listing");
     }
   }, [navigate]);
-  ///submit function///
-
-  //const order = useAppSelector((state) => state.persistedReducer.order);
 
   const [create] = useCreateOrderMutation();
 

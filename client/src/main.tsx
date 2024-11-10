@@ -4,6 +4,8 @@ import App from "./App.tsx";
 import { store } from "./store/store.ts";
 import { Provider } from "react-redux";
 import "./index.css";
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
 import { persistor } from "./store/store.ts";
 import { BrowserRouter } from "react-router-dom";
 import { PersistGate } from "redux-persist/integration/react";

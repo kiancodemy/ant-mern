@@ -40,3 +40,14 @@ export const ProductById = async (req, res) => {
     });
   }
 };
+
+export const carousel = async (req, res) => {
+  try {
+    const getProducts = await Products.find({}).limit(3).select("Image");
+    res.status(200).json(getProducts);
+  } catch (err) {
+    res.status(400).json({
+      message: "could not find any",
+    });
+  }
+};

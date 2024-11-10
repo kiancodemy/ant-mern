@@ -60,6 +60,7 @@ export default function NewProduct({ setloading }: setloading) {
     TotalStock?: number;
     file: any;
   };
+
   ///submit function//
 
   const onFinish: FormProps<FieldType>["onFinish"] = async (values) => {
@@ -82,7 +83,7 @@ export default function NewProduct({ setloading }: setloading) {
     }
   };
 
-  ///main tsx///
+ 
 
   return (
     <Form

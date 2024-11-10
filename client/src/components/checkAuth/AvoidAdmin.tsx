@@ -4,6 +4,7 @@ import { Navigate } from "react-router-dom";
 
 import { RootState } from "../../store/store";
 export default function AvoidAdmin() {
+  
   const { role } = useAppSelector(
     (state: RootState) => state.persistedReducer.auth.userinfo
   );

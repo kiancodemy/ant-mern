@@ -12,6 +12,7 @@ type FieldType = {
 };
 export default function SignupForm() {
   const navigate = useNavigate();
+
   const [get, { isLoading, data, isSuccess, isError, error }] =
     useRegisterMutation();
 
@@ -22,20 +23,18 @@ export default function SignupForm() {
   const onFinish: FormProps<FieldType>["onFinish"] = async (values) => {
     await get(values);
   };
-  ///query check//
+
   const location = useLocation();
   const queryParams = new URLSearchParams(location.search);
   const redirect = queryParams.get("redirect");
   useEffect(() => {
     if (isError) {
-      console.log(error);
       messageApi.open({
         type: "error",
         content: error?.data?.message,
         duration: 2,
       });
     } else if (isSuccess) {
-      console.log(data);
       messageApi
         .open({
           type: "success",

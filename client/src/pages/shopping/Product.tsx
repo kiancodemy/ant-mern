@@ -7,26 +7,20 @@ import { useState } from "react";
 import { DoubleLeftOutlined } from "@ant-design/icons";
 import { useNavigate } from "react-router-dom";
 export default function Product() {
+  const { id } = useParams();
   const [quantity, setquantity] = useState<number>(1);
   const navigate = useNavigate();
 
-  ///change quantity
   const handleChange = (value: number) => {
     setquantity(Number(value));
   };
-  //redux toolkit config//
+
   const dispatch = useAppDispatch();
 
-  ////params//
-
-  const { id } = useParams();
-
-  /// get by id configuration//
   const { data, isLoading } = useProductByIdQuery(id);
 
   ///handlesubmit function///
   const handlesubmit = () => {
-    console.log({ ...data, quantity });
     dispatch(setOrder({ ...data, quantity }));
     navigate(`/shop/checkout`);
   };
@@ -36,8 +30,6 @@ export default function Product() {
       value: i + 1,
       label: i + 1,
     })).concat([]);
-
-  ///main tsx//
 
   return (
     <Row

@@ -13,9 +13,7 @@ export default function Procheck() {
     (state: RootState) => state.persistedReducer.order.order
   );
 
-  /// all
-
-  ///submit function///
+  
 
   const handleSubmit = () => {
     navigate("/shop/address");

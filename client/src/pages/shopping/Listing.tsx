@@ -3,10 +3,13 @@ import { Col, Flex, Row } from "antd";
 
 import SortComponent from "../../components/shopping/SortComponent";
 import CardProduct from "../../components/shopping/CardProduct";
-
+import Carousel from "../../components/carousel/Carousel";
 export default function Listing() {
   return (
     <Row className=" sm:p-5 md:p-10">
+      <Col span={24}>
+        <Carousel></Carousel>
+      </Col>
       <Col xs={{ span: 0 }} md={{ span: 6 }}>
         <Filter></Filter>
       </Col>

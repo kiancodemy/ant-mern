@@ -7,7 +7,6 @@ import { RootState } from "../../store/store";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 export default function AdressCheckout() {
-  //error meesage config//
   const [messageApi, contextHolder] = message.useMessage();
 
   const failed = () => {
@@ -18,15 +17,14 @@ export default function AdressCheckout() {
     });
   };
 
-  /// navigation rout//
   const navigate = useNavigate();
-  //redux toolkit config//
+
   const dispatch = useAppDispatch();
+
   const { City, Street, Adress, Postalcode } = useAppSelector(
     (state: RootState) => state.persistedReducer.order.address
   );
 
-  //use effect//
   useEffect(() => {
     if (!City || !Street || !Adress || !Postalcode) {
       navigate("/shop/address");
@@ -42,7 +40,6 @@ export default function AdressCheckout() {
   };
 
   //submit funnction//
-
   const onFinish: FormProps<FieldType>["onFinish"] = (values) => {
     messageApi
       .open({
@@ -60,6 +57,7 @@ export default function AdressCheckout() {
   const onFinishFailed: FormProps<FieldType>["onFinishFailed"] = () => {
     failed();
   };
+
   return (
     <div className="bg-[#f7f8f9]">
       <Flex justify="center">

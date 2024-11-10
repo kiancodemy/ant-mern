@@ -11,11 +11,14 @@ export default function LogAgain() {
   const redirect = queryParams.get("redirect");
   const finalUrl = redirect || "/shop/listing";
 
-  const { username } = useAppSelector(
+  const { username, role } = useAppSelector(
     (state: RootState) => state.persistedReducer.auth.userinfo
   );
-  if (username) {
+  console.log(role);
+  if (username && role === "user") {
     return <Navigate replace to={finalUrl}></Navigate>;
+  } else if (username && role === "admin") {
+    return <Navigate replace to="/admin/Dashboard"></Navigate>;
   } else {
     return <Outlet></Outlet>;
   }

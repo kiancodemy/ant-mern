@@ -4,9 +4,7 @@ import AvoidAdmin from "./components/checkAuth/AvoidAdmin";
 const Auth = lazy(() => import("./components/auth/Auth"));
 const Admin = lazy(() => import("./components/admin/Admin"));
 const Signup = lazy(() => import("./pages/auth/Signup"));
-import Login from "./pages/auth/Login";
-import Loading from "./components/loading/Loadin";
-//const Adminlazy(()=>import() "./components/admin/Admin";
+
 const Dashboard = lazy(() => import("./pages/admin/Dashboard"));
 const Products = lazy(() => import("./pages/admin/Products"));
 const Orders = lazy(() => import("./pages/admin/Orders"));
@@ -17,11 +15,15 @@ const Listing = lazy(() => import("./pages/shopping/Listing"));
 const AdressCheckout = lazy(() => import("./pages/shopping/AdressCheckout"));
 const Acount = lazy(() => import("./pages/shopping/Acount"));
 const Procheck = lazy(() => import("./pages/shopping/Procheck"));
-import AdminCheck from "./components/checkAuth/AdminCheck";
 const Finalpay = lazy(() => import("./pages/shopping/Finalpay"));
+
+import AdminCheck from "./components/checkAuth/AdminCheck";
+import Login from "./pages/auth/Login";
+import Loading from "./components/loading/Loadin";
 import LogAgain from "./components/checkAuth/LogAgain";
 import Checkauth from "./components/checkAuth/Checkauth";
 import CheckoutAuth from "./components/checkAuth/CheckoutAuth";
+
 export default function App() {
   return (
     <div className="app">
@@ -40,6 +42,9 @@ export default function App() {
               <Route path="Dashboard" element={<Dashboard />} />
               <Route path="products" element={<Products />} />
             </Route>
+            <Route path="orders" element={<Orders />} />
+            <Route path="Dashboard" element={<Dashboard />} />
+            <Route path="products" element={<Products />} />
           </Route>
           <Route path="shop" element={<Shoppingcomp />}>
             <Route path="" element={<AvoidAdmin></AvoidAdmin>}>

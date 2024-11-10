@@ -23,6 +23,7 @@ export default function UpdateModel({
   useEffect(() => {
     resetForm();
   }, [UpdatedItem]);
+
   type FieldType = {
     Title?: string;
     Description?: string;
@@ -32,6 +33,7 @@ export default function UpdateModel({
     Saleprice?: number;
     TotalStock?: number;
   };
+
   ///submit function//
 
   const onFinish: FormProps<FieldType>["onFinish"] = async (values) => {

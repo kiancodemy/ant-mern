@@ -3,8 +3,7 @@ import { useState } from "react";
 import { LoginOutlined, AlignLeftOutlined } from "@ant-design/icons";
 import Sidebar from "./Sidebar";
 export default function Header() {
-  //function for logout
-  const Logout = () => {};
+  const LogOutFunction = () => {};
   const [open, setOpen] = useState(false);
 
   const showDrawer = () => {
@@ -35,7 +34,7 @@ export default function Header() {
       <Button
         iconPosition="start"
         icon={<LoginOutlined />}
-        onClick={Logout}
+        onClick={LogOutFunction}
         type="primary"
         size="large"
       >

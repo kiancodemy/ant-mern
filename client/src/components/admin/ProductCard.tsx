@@ -7,15 +7,16 @@ import {
   useGetAllProductsQuery,
   useAdmindeleteMutation,
 } from "../../store/api/adminApi";
+
 function ProductCard() {
-  ///model config open and close //
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [UpdatedItem, setUpdatedItem] = useState({});
 
   const handleCancel = () => {
     setIsModalOpen(false);
   };
-  //fetch all data config//
+
+  // Fetch All Data //
   const { data, isLoading } = useGetAllProductsQuery(1);
   const openModels = (data: any) => {
     setUpdatedItem(() => data);
@@ -24,7 +25,6 @@ function ProductCard() {
   };
   const [deleting] = useAdmindeleteMutation();
 
-  //delte titen function//
   const DeleteFunction = async (id: string) => {
     try {
       await deleting(id);

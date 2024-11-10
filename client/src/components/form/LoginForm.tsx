@@ -14,20 +14,19 @@ type FieldType = {
 };
 
 export default function LoginForm() {
-  ///rtk query config//
   const [get, { isLoading, data, isSuccess, isError, error }] =
     useLoginMutation();
 
-  // redux toolit//
   const dispatch = useAppDispatch();
 
-  // Get the 'redirect' query parameter
+  // Get the 'redirect' query paramet//
   const location = useLocation();
   const queryParams = new URLSearchParams(location.search);
   const redirect = queryParams.get("redirect");
 
   ///ant design alert message//
   const [messageApi, contextHolder] = message.useMessage();
+
   useEffect(() => {
     if (isError) {
       messageApi.open({
